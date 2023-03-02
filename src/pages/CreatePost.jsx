@@ -7,15 +7,21 @@ import { FormField, Loader } from "../components";
 
 const handleSubmit = () => {};
 
-const handleChange = (e) => {};
+const handleChange = (e) => {
+  setForm({ ...form, [e.target.name]: [e.target.value] });
+};
 
-const handleSurpriseMe = () => {};
+const handleSurpriseMe = () => {
+  const randomPrompt = getRandomPrompt(from.prompt);
+  setForm({ ...form, prompt: randomPrompt });
+};
+const generateImg = () => {};
 
 const CreatePost = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", prompt: "", photo: "" });
   const [generatingImg, setGeneratingImg] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   return (
     <section className="max-w-7xl mx-auto">
       <div>
@@ -69,6 +75,24 @@ const CreatePost = () => {
               </div>
             )}
           </div>
+        </div>
+        <div className="mt-5 flex gap-5">
+          <button
+            type="button"
+            onClick={generateImg}
+            className="text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >
+            {generatingImg ? "Generating...." : "Generate"}
+          </button>
+        </div>
+        <div>
+          <p className="mt-5 text-[#666e75] text-[14px]">
+            Once you have created the image you want, you can share it with
+            others in the community.
+          </p>
+          <button className="mt-5 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-12 py-2.5 text-center">
+            {loading ? "sharing..." : "share with the community"}
+          </button>
         </div>
       </form>
     </section>
